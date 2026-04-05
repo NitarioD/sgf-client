@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AdminContentContext } from "../../contexts";
+import React, { useEffect, useState } from "react";
+import { getPublicApiBaseUrl } from "@/lib/apiBase";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import axios from "axios";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
@@ -38,7 +39,7 @@ const MenuBar = ({ editor, showModal }) => {
       .chain()
       .focus()
       .setImage({
-        src: `${process.env.NEXT_PUBLIC_API_URL}/image/${id}`,
+        src: `${getPublicApiBaseUrl()}/image/${id}`,
       })
       .run();
   };
@@ -175,7 +176,7 @@ const MenuBar = ({ editor, showModal }) => {
 
 const CreatePost = () => {
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   //local state
   const [images, setImages] = useState([]);

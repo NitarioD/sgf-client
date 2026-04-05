@@ -1,18 +1,14 @@
-import { Flex, Spin } from "antd";
-
 const Loading = () => {
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
+      className="flex min-h-[50vh] w-full flex-col items-center justify-center gap-4 py-16"
+      role="status"
+      aria-label="Loading"
     >
-      <Spin size="large" />
+      <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      <span className="text-sm text-muted-foreground">Loading…</span>
     </div>
   );
 };
+
 export default Loading;

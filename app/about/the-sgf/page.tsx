@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Editor } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import { EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { BasicContentContext } from "@/contexts";
+import { useAppSelector } from "@/store/hooks";
 import capitaliseHeader from "@/helperFunctions/capitaliseHeader";
 import Loading from "@/components/loading";
 
@@ -16,12 +16,15 @@ let editor;
 
 const TheSGF = () => {
   const [postLoaded, setPostLoaded] = useState(false);
-  const [basics, setBasics] = useContext(BasicContentContext);
+  const basics = useAppSelector((s) => s.siteContent.basics) as {
+    point_man?: { content?: string };
+    the_sgf?: { title?: string; content?: string };
+  };
 
   useEffect(() => {
-    if (basics.point_man?.content) {
+    if (basics.the_sgf?.content) {
       const formattedArticle = capitaliseHeader(
-        `<h1>${basics.the_sgf.title}</h1> ${basics.the_sgf.content}`
+        `<h1>${basics.the_sgf?.title ?? ""}</h1> ${basics.the_sgf?.content ?? ""}`
       );
 
       editor = new Editor({

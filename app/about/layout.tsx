@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PostsProvider } from "@/contexts";
 
 export const metadata: Metadata = {
   description:
@@ -11,5 +10,5 @@ export default function PostLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <PostsProvider>{children}</PostsProvider>;
+  return <>{children}</>;
 }

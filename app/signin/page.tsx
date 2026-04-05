@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   LockOutlined,
   UserOutlined,
@@ -9,8 +9,9 @@ import {
 import { Button, Form, Input, Row, Col, Spin } from "antd";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "@/contexts";
 import axios from "axios";
+import { useAppDispatch } from "@/store/hooks";
+import { setAuth } from "@/store/slices/authSlice";
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -18,7 +19,7 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const [spinner, setSpinner] = useState(false);
-  const [auth, setAuth] = useContext(AuthContext);
+  const dispatch = useAppDispatch();
 
   //hook
   const router = useRouter();
@@ -31,10 +32,12 @@ const Login = () => {
       setLoading(false);
     } else {
       localStorage.setItem("auth", JSON.stringify(data));
-      setAuth({
-        user: data.user,
-        token: data.token,
-      });
+      dispatch(
+        setAuth({
+          user: data.user,
+          token: data.token,
+        })
+      );
 
       toast.success("Succesfully logged in");
       const role = data.user.role;

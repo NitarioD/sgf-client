@@ -1,7 +1,7 @@
 // @ts-nocheck
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import Subscribers from "./getSubscribers";
 import Subscriber from "./getSubscriber";
 import UploadImage from "./uploadImage";
@@ -58,20 +58,24 @@ const items = [
 ];
 
 const DashBoard = () => {
-  //get window width
-  const windowWidth = process.browser && window.innerWidth;
+  const [windowWidth, setWindowWidth] = useState(1024);
 
   const [collapsed, setCollapsed] = useState(false);
   const [subscriberId, setSubscriberId] = useState("");
 
-  //context state
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const router = useRouter();
 
   useEffect(() => {
-    const isCollapsed = () => windowWidth <= 580 && setCollapsed(true);
-    isCollapsed();
+    const onResize = () => setWindowWidth(window.innerWidth);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth <= 580) setCollapsed(true);
   }, [windowWidth]);
 
   const {

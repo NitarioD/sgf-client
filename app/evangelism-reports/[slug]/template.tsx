@@ -1,19 +1,23 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "@/contexts";
+
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setEvangelismPosts } from "@/store/slices/postsSlice";
 import { getEvangelismPosts } from "@/api/api_communications";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [getAllPosts, setAllPosts] = useContext(PostsContext);
+  const dispatch = useAppDispatch();
+  const evangelism = useAppSelector((s) => s.posts.evangelism);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const data = await getEvangelismPosts();
-      setAllPosts(data);
+      dispatch(setEvangelismPosts(data));
     };
-    if (!getAllPosts[0]) {
+    if (!evangelism[0]) {
       fetchPosts();
     }
-  }, [getAllPosts, setAllPosts]);
+  }, [evangelism, dispatch]);
+
   return <div>{children}</div>;
 }

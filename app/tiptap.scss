@@ -1,4 +1,4 @@
-/* Basic editor styles */
+/* Basic editor styles — admin / compose */
 .tiptap {
   margin-top: 1rem;
 
@@ -19,32 +19,32 @@
   h6 {
     line-height: 1.1;
   }
-  h1{
+  h1 {
     font-size: 1.5rem;
   }
-  h2{
+  h2 {
     font-size: 1.48rem;
   }
-  h3{
+  h3 {
     font-size: 1.46rem;
   }
-  h4{
+  h4 {
     font-size: 1.42rem;
   }
-  h5{
+  h5 {
     font-size: 1.4rem;
   }
-  h6{
+  h6 {
     font-size: 1.38rem;
   }
-  
+
   @media only screen and (max-width: 650px) {
     p {
       font-size: 1rem;
     }
   }
 
-  @media screen and (max-width: 1060px) and (min-width: 651px){
+  @media screen and (max-width: 1060px) and (min-width: 651px) {
     p {
       font-size: 1rem;
     }
@@ -62,9 +62,9 @@
   }
 
   pre {
-    background: #0D0D0D;
-    color: #FFF;
-    font-family: 'JetBrainsMono', monospace;
+    background: #0d0d0d;
+    color: #fff;
+    font-family: "JetBrainsMono", monospace;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
 
@@ -77,7 +77,7 @@
   }
 
   mark {
-    background-color: #FAF594;
+    background-color: #faf594;
   }
 
   img {
@@ -87,13 +87,93 @@
 
   blockquote {
     padding-left: 1rem;
-    border-left: 2px solid rgba(#0D0D0D, 0.1);
+    border-left: 2px solid rgba(#0d0d0d, 0.1);
   }
 
   hr {
     border: none;
-    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    border-top: 2px solid rgba(#0d0d0d, 0.1);
     margin: 2rem 0;
+  }
+}
+
+/* Read-only posts from DB (teachings, publications, evangelism) */
+#post .tiptap {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+
+  > * + * {
+    margin-top: 0.45em;
+  }
+
+  ul,
+  ol {
+    padding: 0 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.125rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  h3 {
+    font-size: 1.05rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 0.98rem;
+  }
+  h6 {
+    font-size: 0.95rem;
+  }
+
+  @media only screen and (max-width: 650px) {
+    p {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media screen and (max-width: 1060px) and (min-width: 651px) {
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media only screen and (min-width: 1061px) {
+    font-size: 0.9375rem;
+    p {
+      font-size: 0.9375rem;
+    }
+  }
+
+  pre {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+
+    code {
+      font-size: 0.75rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+
+  blockquote {
+    padding-left: 0.75rem;
+    font-size: 0.9em;
+  }
+
+  hr {
+    border-top: 1px solid rgba(#0d0d0d, 0.12);
+    margin: 1rem 0;
   }
 }
 

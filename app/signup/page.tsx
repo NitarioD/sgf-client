@@ -52,10 +52,9 @@ const SignUp = () => {
       toast.error("Passwords do not match");
       return;
     }
-    const api = process.browser && process.env.NEXT_PUBLIC_API;
     setLoading(true);
     //send all the vales in signupDetails except password_confirmed
-    const { data } = await axios.post(`${api}/signup`, {
+    const { data } = await axios.post("/signup", {
       ...signupDetails,
       password_confirmed: undefined,
     });

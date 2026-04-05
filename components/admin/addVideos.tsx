@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, { useEffect, useState, useContext } from "react";
-import { AdminContentContext } from "../../contexts";
+import React, { useEffect, useState } from "react";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import axios from "axios";
 import { Modal, Space, Dropdown, message, Button, Input } from "antd";
 import { DownOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -10,7 +10,7 @@ const { TextArea } = Input;
 
 const CreateVideos = () => {
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   //local states
   const [tagName, setTagName] = useState("");

@@ -1,14 +1,9 @@
 "use client";
 
 import Nav from "./Nav";
-import { MenuProvider } from "@/contexts";
 
 const NavBar = () => {
-  return (
-    <MenuProvider>
-      <Nav />
-    </MenuProvider>
-  );
+  return <Nav />;
 };
 
 export default NavBar;

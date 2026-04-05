@@ -1,44 +1,81 @@
 "use client";
 
-import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { useState, useEffect, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DisplayVideosByTagname from "@/components/displayVideosByTagname";
-import { PostsContext } from "@/contexts";
+import { useAppDispatch } from "@/store/hooks";
+import { setVideoPosts } from "@/store/slices/postsSlice";
+import { getVideoPosts } from "@/api/api_communications";
+import sortByTags from "@/helperFunctions/sortVideosByTagname";
+import type { VideoEntry } from "@/helperFunctions/normalizeVideoGroups";
 import Loading from "../../../../components/loading";
 
-// @ts-ignore
-let editor;
+type VideoGroup = [string, VideoEntry[]];
 
+/**
+ * Videos list is kept in local state so a full page refresh always reflects
+ * the fetch result (avoids Strict Mode + Redux timing issues).
+ */
 const Videos = () => {
-  const [postLoaded, setPostLoaded] = useState(false);
-  const [posts, setPosts] = useContext(PostsContext);
+  const dispatch = useAppDispatch();
+  const [groups, setGroups] = useState<VideoGroup[]>([]);
+  const [fetchDone, setFetchDone] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const requestId = useRef(0);
 
   useEffect(() => {
-    if (posts[0]) {
-      setPostLoaded(true);
-    }
-  }, [posts]);
+    const id = ++requestId.current;
+    setFetchError(null);
 
-  return postLoaded ? (
-    <>
-      <div id="post" className="flex justify-center ">
-        <Badge variant="outline" id="tag">
-          <span>Videos</span>
-        </Badge>
-        <div
-          style={{ position: "relative", top: 0 }}
-          className="w-[70vw] mt-[50px] overflow-auto max-h-[80vh]"
-        >
-          {/* @ts-ignore */}
-          {posts.map((video) => (
-            <DisplayVideosByTagname video={video} key={video[0]} />
-          ))}
-        </div>
-      </div>
-    </>
-  ) : (
-    <Loading />
+    void (async () => {
+      try {
+        const raw = await getVideoPosts();
+        const grouped = sortByTags(raw) as VideoGroup[];
+
+        if (id !== requestId.current) return;
+
+        setGroups(grouped);
+        dispatch(setVideoPosts(grouped));
+      } catch (e) {
+        if (id !== requestId.current) return;
+        setFetchError(
+          e instanceof Error ? e.message : "Could not load videos."
+        );
+        setGroups([]);
+        dispatch(setVideoPosts([]));
+      } finally {
+        if (id === requestId.current) {
+          setFetchDone(true);
+        }
+      }
+    })();
+  }, [dispatch]);
+
+  if (!fetchDone) {
+    return <Loading />;
+  }
+
+  if (fetchError) {
+    return (
+      <p className="text-center text-destructive" role="alert">
+        {fetchError}
+      </p>
+    );
+  }
+
+  if (!groups.length) {
+    return (
+      <p className="py-16 text-center text-muted-foreground">
+        No videos are available yet. Check back soon.
+      </p>
+    );
+  }
+
+  return (
+    <div id="post" className="flex w-full min-w-0 flex-col items-stretch justify-center">
+      {groups.map((video, idx) => (
+        <DisplayVideosByTagname video={video} key={idx} />
+      ))}
+    </div>
   );
 };
 

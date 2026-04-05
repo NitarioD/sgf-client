@@ -1,9 +1,9 @@
 // @ts-nocheck
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { List, Pagination, Modal, message } from "antd";
 import capitalise from "../../helperFunctions/capitalise";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import EditVideos from "./editVideo";
 
 const { confirm } = Modal;
@@ -21,7 +21,7 @@ const ViewVideos = () => {
   const [videoInfo, setVideoInfo] = useState({});
 
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -1,6 +1,10 @@
 "use client";
 
 import axios from "axios";
+import { getPublicApiBaseUrl } from "@/lib/apiBase";
+import { unwrapList } from "@/lib/unwrapApiList";
+
+axios.defaults.baseURL = getPublicApiBaseUrl();
 
 const getHomeDetails: () => Promise<object> = async () => {
     type data_params = {
@@ -69,14 +73,9 @@ const getHomeDetails: () => Promise<object> = async () => {
     });
 };
 
-const getVideos: () => Promise<[]> = async () => {
+const getVideos: () => Promise<unknown[]> = async () => {
     const { data } = await axios.get("/videos");
-
-    if (data) {
-        return data;
-    } else {
-        return [];
-    }
+    return unwrapList(data);
 }
 
 const getArticles: () => Promise<[]> = async () => {
@@ -110,14 +109,9 @@ const getPublicationPosts: () => Promise<{ _id: string; title: string; content: 
     }
 }
 
-const getVideoPosts: () => Promise<{ _id: string; title: string; content: string; category: string; createdAt: string; updatedAt: string; }[]> = async () => {
+const getVideoPosts: () => Promise<unknown[]> = async () => {
     const { data } = await axios.get(`/videos`);
-
-    if (data.toString()) {
-        return (data);
-    } else {
-        return []
-    }
+    return unwrapList(data);
 }
 
 const getEvangelismPosts: () => Promise<{ _id: string; title: string; content: string; category: string; createdAt: string; updatedAt: string; }[]> = async () => {

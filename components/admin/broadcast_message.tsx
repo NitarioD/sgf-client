@@ -1,15 +1,15 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Input, Button, message } from "antd";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import capitalise from "../../helperFunctions/capitalise";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 const { TextArea } = Input;
 
 const BroadcastMessage = () => {
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const [loading, setLoading] = useState(false);
 

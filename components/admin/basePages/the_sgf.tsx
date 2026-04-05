@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState, useContext } from "react";
+import { getPublicApiBaseUrl } from "@/lib/apiBase";
 import axios from "axios";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
@@ -35,7 +36,7 @@ const MenuBar = ({ editor, showModal }) => {
       .chain()
       .focus()
       .setImage({
-        src: `${process.env.NEXT_PUBLIC_API_URL}/image/${id}`,
+        src: `${getPublicApiBaseUrl()}/image/${id}`,
       })
       .run();
   };

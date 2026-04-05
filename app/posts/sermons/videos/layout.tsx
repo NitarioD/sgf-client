@@ -1,20 +1,8 @@
-"use client";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "@/contexts";
-import sortByTags from "@/helperFunctions/sortVideosByTagname";
-import { getVideoPosts } from "@/api/api_communications";
+import type { ReactNode } from "react";
 
-export default function Template({ children }: { children: React.ReactNode }) {
-  const [getAllPosts, setAllPosts] = useContext(PostsContext);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const data = await getVideoPosts();
-      setAllPosts(sortByTags(data));
-    };
-    if (!getAllPosts[0]) {
-      fetchPosts();
-    }
-  }, [getAllPosts, setAllPosts]);
-  return <div>{children}</div>;
+/** Layout wrapper only; fetching happens in `page.tsx` for correct loading / empty states. */
+export default function VideosLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="mx-auto w-full max-w-5xl pb-12">{children}</div>
+  );
 }

@@ -1,19 +1,23 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "@/contexts";
+
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setPublicationPosts } from "@/store/slices/postsSlice";
 import { getPublicationPosts } from "@/api/api_communications";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [getAllPosts, setAllPosts] = useContext(PostsContext);
+  const dispatch = useAppDispatch();
+  const publication = useAppSelector((s) => s.posts.publication);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const data = await getPublicationPosts();
-      setAllPosts(data);
+      dispatch(setPublicationPosts(data));
     };
-    if (!getAllPosts[0]) {
+    if (!publication[0]) {
       fetchPosts();
     }
-  }, [getAllPosts, setAllPosts]);
+  }, [publication, dispatch]);
+
   return <div>{children}</div>;
 }

@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AdminContentContext } from "../../contexts";
+import React, { useEffect, useState } from "react";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import { List, message, Pagination } from "antd";
 import axios from "axios";
 import EditPost from "./editPost";
 
 const ViewPost = () => {
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const [posts, setPosts] = useState([]);
   const [postID, setPostID] = useState("");

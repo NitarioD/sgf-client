@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { getPublicApiBaseUrl } from "@/lib/apiBase";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import Image from "next/image";
@@ -49,7 +50,7 @@ const GetImage = ({
           height={0}
           alt="image"
           className="h-[225px]"
-          src={`${process.env.NEXT_PUBLIC_API_URL}/image/${image._id}`}
+          src={`${getPublicApiBaseUrl()}/image/${image._id}`}
         />
       }
     >

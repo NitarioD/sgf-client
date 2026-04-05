@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { message } from "antd";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import useInterval from "@/helperFunctions/interval";
-// import { AuthContext } from "../../contexts";
 import { Progress } from "@/components/ui/progress";
 import axios from "axios";
 
 const UploadImage = () => {
   //context for the content
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
   const [progress, setProgress] = useState(0);
   const [milliseconds, setmilliseconds] = useState(0);
   //context for auth

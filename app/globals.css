@@ -1,150 +1,185 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 222.2 84% 4.9%;
+@layer base {
+  :root {
+    /* Warm paper + deep teal — ministry / editorial feel */
+    --background: 42 40% 98%;
+    --foreground: 205 32% 15%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 205 32% 15%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 205 32% 15%;
 
-      --primary: 222.2 47.4% 11.2%;
-      --primary-foreground: 210 40% 98%;
+    --primary: 188 55% 24%;
+    --primary-foreground: 42 45% 98%;
 
-      --secondary: 210 40% 96.1%;
-      --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 188 18% 93%;
+    --secondary-foreground: 188 50% 20%;
 
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 42 25% 94%;
+    --muted-foreground: 205 14% 38%;
 
-      --accent: 210 40% 96.1%;
-      --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 42 55% 94%;
+    --accent-foreground: 188 50% 22%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
+    --highlight: 38 78% 54%;
+    --highlight-foreground: 205 35% 12%;
 
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 222.2 84% 4.9%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 40 40% 98%;
 
-      --radius: 0.5rem;
-    }
+    --border: 188 16% 86%;
+    --input: 188 16% 86%;
+    --ring: 188 50% 38%;
 
-    .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-
-      --popover: 222.2 84% 4.9%;
-      --popover-foreground: 210 40% 98%;
-
-      --primary: 210 40% 98%;
-      --primary-foreground: 222.2 47.4% 11.2%;
-
-      --secondary: 217.2 32.6% 17.5%;
-      --secondary-foreground: 210 40% 98%;
-
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-
-      --accent: 217.2 32.6% 17.5%;
-      --accent-foreground: 210 40% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 217.2 32.6% 17.5%;
-      --input: 217.2 32.6% 17.5%;
-      --ring: 212.7 26.8% 83.9%;
-    }
+    --radius: 0.75rem;
   }
 
-  .ant-card-head-title{
-    color: white;
-  }
-  
-  #post > div > div > div > h1{
-    font-size: 20px;
-    text-align: center;
-    background: rgb(2,13,17);
-    margin-top: 25px;
-    margin-bottom: 15px;
-    color: white;
-    border-radius: 5px;
-    padding: 5px 0;
+  .dark {
+    --background: 200 30% 8%;
+    --foreground: 40 25% 96%;
+
+    --card: 200 28% 11%;
+    --card-foreground: 40 25% 96%;
+
+    --popover: 200 28% 11%;
+    --popover-foreground: 40 25% 96%;
+
+    --primary: 186 45% 48%;
+    --primary-foreground: 200 30% 8%;
+
+    --secondary: 200 22% 18%;
+    --secondary-foreground: 40 25% 96%;
+
+    --muted: 200 22% 18%;
+    --muted-foreground: 186 15% 68%;
+
+    --accent: 200 22% 20%;
+    --accent-foreground: 40 25% 96%;
+
+    --destructive: 0 62% 42%;
+    --destructive-foreground: 40 40% 98%;
+
+    --border: 200 22% 20%;
+    --input: 200 22% 20%;
+    --ring: 186 45% 55%;
+
+    --highlight: 38 70% 58%;
+    --highlight-foreground: 205 35% 10%;
   }
 
-  #post > div > div > div > p{
-    line-height: 1.5;
-    margin: 15px 0;
-    text-align: justify;
+  * {
+    @apply border-border;
   }
+
+  body {
+    @apply min-h-screen bg-background font-sans text-base text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display), ui-serif, Georgia, serif;
+  }
+}
+
+@layer components {
+  .ant-card-head-title {
+    @apply text-white;
+  }
+
+  /* Sermons / posts / evangelism reader — compact type + rhythm */
+  #post > div > div > div > h1 {
+    @apply mb-2 mt-4 rounded-md bg-primary py-1.5 text-center text-base font-semibold text-primary-foreground sm:text-lg;
+  }
+
+  #post > div > div > div > p {
+    @apply my-2 text-justify text-sm leading-snug sm:my-2.5 sm:text-[0.9375rem] sm:leading-relaxed;
+  }
+
   #tag {
+    @apply mb-0 ml-[-1.25rem] mr-[2rem] mt-12 flex h-full justify-center text-base sm:mr-[2.5rem] sm:text-lg lg:mt-16;
     writing-mode: vertical-lr;
     text-orientation: mixed;
-    font-size: 27px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 100px 50px 70px -20px;
   }
 
-  .tiptap-menu> button{
-    background-color: #001529;
-    padding: 5px 7px;
-    min-width: 80px;
-    border-radius: 5px;
+  .tiptap-menu > button {
+    @apply min-w-[80px] rounded-md bg-primary px-1.5 py-1.5;
   }
 
-  .tiptap-menu> button:hover{
-    background-color: white;
-    color: #001529;
+  .tiptap-menu > button:hover {
+    @apply bg-secondary text-primary;
   }
 
-  .tiptap-menu> .is-active{
-    background-color: white;
-    color: #001529;
+  .tiptap-menu > .is-active {
+    @apply bg-secondary text-primary;
   }
 
-  .tiptap-content> div> div{
-    padding-top: 5px;
-    min-height: 60vh;
-    width: 100%;
+  .tiptap-content > div > div {
+    @apply min-h-[50vh] w-full pt-1;
   }
-  .publish{
-    position: fixed;
-    right: 10px;
-    bottom: 50px;
-    width: 150px;
-    color: white;
-    background-color: #001529;
-    padding: 5px 15px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    z-index: 10;
+
+  .publish {
+    @apply fixed bottom-[50px] right-2.5 z-10 w-[150px] rounded-md bg-primary px-4 py-1.5 text-xl text-primary-foreground;
   }
-  .publish:hover{
-    background-color: #001529;
-    font-size: 1.5em;
-    box-shadow: 1px 1px 1px black;
+
+  .publish:hover {
+    @apply bg-primary text-[1.5em] shadow-sm shadow-foreground/20;
   }
-  @media only screen and (max-width: 650px) {
+
+  /* Optional: consistent page width for marketing sections */
+  .sgf-section {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /*
+    Content inside `sgf-full-bleed` must re-add `<main>` padding plus `.sgf-section`
+    padding, or text lines up with the viewport edge while other sections sit inset — looks
+    “cropped” / shifted on mobile. Values match app/template.tsx + `.sgf-section`.
+  */
+  .sgf-full-bleed-inner {
+    @apply mx-auto w-full max-w-6xl min-w-0 px-7 sm:px-11 md:px-12 lg:px-[4.5rem];
+  }
+
+  /* Break out of padded `<main>` for full-bleed heroes (home, etc.) */
+  .sgf-full-bleed {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+}
+
+@layer utilities {
+  @media (max-width: 650px) {
     #tag {
-      margin: 56px 7px 0px -19px;
+      @apply ml-[-1.2rem] mr-2 mt-10 text-sm;
     }
   }
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+}
+
+/* Post reader: stack badge + content on tablets / small laptops */
+@media (max-width: 1060px) {
+  #post {
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
+
+  #tag {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    margin: 0 0 0.75rem 0 !important;
+    margin-right: 0 !important;
+    height: auto !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    align-self: flex-start !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+}

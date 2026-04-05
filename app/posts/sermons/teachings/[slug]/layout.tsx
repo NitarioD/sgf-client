@@ -1,19 +1,23 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { PostsContext } from "@/contexts";
+
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setTeachingPosts } from "@/store/slices/postsSlice";
 import { getTeachingPosts } from "@/api/api_communications";
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [getAllPosts, setAllPosts] = useContext(PostsContext);
+  const dispatch = useAppDispatch();
+  const teaching = useAppSelector((s) => s.posts.teaching);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const data = await getTeachingPosts();
-      setAllPosts(data);
+      dispatch(setTeachingPosts(data));
     };
-    if (!getAllPosts[0]) {
+    if (!teaching[0]) {
       fetchPosts();
     }
-  }, [getAllPosts, setAllPosts]);
+  }, [teaching, dispatch]);
+
   return <div>{children}</div>;
 }

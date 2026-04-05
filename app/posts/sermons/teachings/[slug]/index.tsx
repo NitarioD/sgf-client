@@ -3,14 +3,14 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Pagination } from "antd";
 import { Editor } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import { EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { PostsContext } from "@/contexts";
+import { useAppSelector } from "@/store/hooks";
 import capitaliseHeader from "../../../../../helperFunctions/capitaliseHeader";
 import Loading from "../../../../../components/loading";
 
@@ -19,7 +19,9 @@ let editor;
 
 const Teachings = ({ params }: { params: { slug: string } }) => {
   const [postLoaded, setPostLoaded] = useState(false);
-  const [posts, setPosts] = useContext(PostsContext);
+  const posts = useAppSelector((s) => s.posts.teaching) as {
+    content: string;
+  }[];
 
   const router = useRouter();
 
@@ -49,27 +51,21 @@ const Teachings = ({ params }: { params: { slug: string } }) => {
 
   return postLoaded ? (
     <>
-      <div id="post" className="flex justify-center">
+      <div id="post" className="flex w-full max-w-full items-start justify-center gap-0">
         <Badge variant="outline" id="tag">
           <span>Teaching</span>
         </Badge>
-        <div style={{ position: "relative", top: 0 }} className="w-[80vw]">
+        <div className="relative min-w-0 flex-1 px-0 sm:px-1">
           {/* @ts-ignore */}
           <EditorContent editor={editor} />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "60px",
-            }}
-          >
+          <div className="mt-8 flex justify-center sm:mt-10">
             <Pagination
+              size="small"
               defaultCurrent={parseInt(params.slug)}
               onChange={onPageChange}
               pageSize={1}
               total={posts.length}
               showSizeChanger={false}
-              style={{ position: "absolute", bottom: "0" }}
             />
           </div>
         </div>

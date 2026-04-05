@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import GetImage from "./getImageComponent";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 
 const ViewImages = () => {
   //state for all the images available
@@ -9,7 +9,7 @@ const ViewImages = () => {
   const [imageIdToAdd, setImageIdToAdd] = useState("");
 
   //context for the content
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   useEffect(() => {
     if (content == "view images") {

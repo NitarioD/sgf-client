@@ -1,9 +1,9 @@
 // @ts-nocheck
 import axios from "axios";
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { List, Pagination } from "antd";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import capitalise from "../../helperFunctions/capitalise";
 
 const Subscribers = ({ setSubscriberId }) => {
@@ -11,7 +11,7 @@ const Subscribers = ({ setSubscriberId }) => {
   const [displayedSubscribers, setDisplayedSubscribers] = useState([]);
 
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const [currentPage, setCurrentPage] = useState(1);
 

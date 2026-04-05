@@ -1,7 +1,7 @@
 // @ts-nocheck
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dropdown, Space } from "antd";
-import { AdminContentContext } from "../../contexts";
+import { useAdminContent } from "@/hooks/useAdminContent";
 import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 import Home from "../../components/admin/basePages/home";
 import EditPointMan from "../../components/admin/basePages/point_man";
@@ -10,7 +10,7 @@ import FooterInfo from "./basePages/footer_info";
 
 const EditBasePages = () => {
   //get admin context via context
-  const [content, setContent] = useContext(AdminContentContext);
+  const [content, setContent] = useAdminContent();
 
   const [pageToEdit, setPageToEdit] = useState("Home");
 
