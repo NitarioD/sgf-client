@@ -132,7 +132,7 @@ const Home = () => {
                 {homeDetails?.welcome?.p}
               </p>
             </div>
-            <div className="mt-14 grid auto-rows-fr gap-6 sm:grid-cols-2 sm:gap-7 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+            <div className="mt-12 grid grid-cols-1 gap-5 auto-rows-fr sm:mt-14 md:grid-cols-2 md:gap-7 lg:mt-16 lg:grid-cols-3 lg:gap-8">
               {homeDetails?.cards?.map((card) => (
                 <ShowCard
                   key={card._id}
