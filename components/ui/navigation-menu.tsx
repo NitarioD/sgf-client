@@ -72,7 +72,9 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      "left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ",
+      // This app’s `md` is tablet-only (651–1060px); desktop nav is `lg` (≥1061px). Using `md:absolute`
+      // left large viewports without positioning, which broke Radix viewport size measurement.
+      "left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 lg:absolute lg:w-auto ",
       className
     )}
     {...props}
@@ -93,7 +95,8 @@ const NavigationMenuViewport = React.forwardRef<
   >
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full max-w-[min(100vw-1.5rem,28rem)] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 lg:w-[var(--radix-navigation-menu-viewport-width)]",
+        // Cap is tight on small viewports only; desktop needs a much larger max or submenu copy is clipped.
+        "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full max-w-[min(100vw-1.5rem,28rem)] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-lg transition-none lg:max-w-[min(100vw-2rem,52rem)] lg:w-[var(--radix-navigation-menu-viewport-width)]",
         className
       )}
       ref={ref}

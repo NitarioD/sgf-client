@@ -32,11 +32,11 @@ const icons: {
   point_man: React.ReactNode;
   sgf: React.ReactNode;
 } = {
-  teachings: <GiTeacher className="text-4xl md:text-[2.5rem] text-primary-foreground/90" />,
-  videos: <LiaVideoSolid className="text-4xl md:text-[2.5rem] text-primary-foreground/90" />,
-  publications: <GiBookshelf className="text-4xl md:text-[2.5rem] text-primary-foreground/90" />,
-  point_man: <IoIosMan className="text-4xl md:text-[2.5rem] text-primary-foreground/90" />,
-  sgf: <MdOutlineChurch className="text-4xl md:text-[2.5rem] text-primary-foreground/90" />,
+  teachings: <GiTeacher className="text-4xl md:text-[2.5rem] text-current opacity-90" />,
+  videos: <LiaVideoSolid className="text-4xl md:text-[2.5rem] text-current opacity-90" />,
+  publications: <GiBookshelf className="text-4xl md:text-[2.5rem] text-current opacity-90" />,
+  point_man: <IoIosMan className="text-4xl md:text-[2.5rem] text-current opacity-90" />,
+  sgf: <MdOutlineChurch className="text-4xl md:text-[2.5rem] text-current opacity-90" />,
 };
 
 const getIconElement = (icon: string): React.ReactNode => {
@@ -160,7 +160,7 @@ const Nav = () => {
             </button>
 
             {/* Desktop: Radix navigation menu */}
-            <NavigationMenu className="relative z-10 hidden max-w-max flex-1 justify-end lg:flex">
+            <NavigationMenu className="relative z-10 hidden max-w-max shrink-0 flex-1 justify-end lg:flex">
             <NavigationMenuList className="flex flex-row items-center gap-0">
               {navMenu.map((nav_item, idx) => {
                 const active = isTopNavActive(pathname, nav_item);
@@ -176,15 +176,16 @@ const Nav = () => {
                         >
                           {nav_item.label}
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent className="w-full max-w-[min(100vw-1.5rem,28rem)] lg:max-w-none">
-                          <ul className="grid w-full max-w-full gap-2 p-2 sm:p-3 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] lg:gap-3 lg:p-6">
+                        <NavigationMenuContent className="w-full max-w-[min(100vw-1.5rem,28rem)] lg:w-max lg:max-w-[min(100vw-2rem,50rem)]">
+                          {/* Intrinsic width up to cap so Radix measures full content; avoid fixed 500px cutting off text. */}
+                          <ul className="grid w-full max-w-full grid-cols-1 gap-2 break-words p-2 lg:w-max lg:max-w-[min(100vw-2rem,50rem)] lg:gap-3 lg:p-6">
                             {nav_item.submenuItems.map((component, subIdx) => (
                               <div
-                                className="flex min-w-0 flex-col items-stretch gap-2 rounded-xl bg-white/[0.07] p-2 sm:flex-row sm:items-start sm:gap-3 lg:bg-transparent lg:p-0"
+                                className="flex min-w-0 flex-col items-stretch gap-2 rounded-xl bg-white/[0.07] p-2 lg:flex-row lg:items-start lg:gap-3 lg:bg-transparent lg:p-0"
                                 key={subIdx}
                               >
                                 {component.icon && (
-                                  <div className="hidden shrink-0 sm:block">
+                                  <div className="hidden shrink-0 text-primary lg:block">
                                     {getIconElement(component.icon)}
                                   </div>
                                 )}
@@ -293,7 +294,7 @@ const Nav = () => {
                       >
                         <span className="flex items-start gap-2">
                           {sub.icon && (
-                            <span className="mt-0.5 shrink-0 opacity-90 [&_svg]:h-6 [&_svg]:w-6">
+                            <span className="mt-0.5 shrink-0 text-primary-foreground opacity-90 [&_svg]:h-6 [&_svg]:w-6">
                               {getIconElement(sub.icon)}
                             </span>
                           )}
@@ -333,15 +334,15 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-xl p-3 leading-snug no-underline outline-none transition hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-highlight",
+            "block min-w-0 select-none space-y-1 break-words rounded-xl p-3 leading-snug no-underline outline-none transition hover:bg-accent focus-visible:ring-2 focus-visible:ring-highlight",
             className
           )}
           {...props}
         >
-          <div className="text-sm font-semibold leading-snug text-primary-foreground">
+          <div className="text-sm font-semibold leading-snug text-popover-foreground">
             {title}
           </div>
-          <p className="line-clamp-3 text-sm leading-relaxed text-primary-foreground/75">
+          <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
             {children}
           </p>
         </a>
